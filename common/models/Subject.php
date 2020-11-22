@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "subject".
@@ -15,11 +16,9 @@ use Yii;
  * @property TeacherSubject[] $teacherSubjects
  * @property Timetable[] $timetables
  */
-class Subject extends \yii\db\ActiveRecord
+class Subject extends \common\models\MyModel
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public static function tableName()
     {
         return 'subject';
@@ -32,7 +31,6 @@ class Subject extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['created_at', 'updated_at'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }

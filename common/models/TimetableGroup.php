@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use Yii;
-
 /**
  * This is the model class for table "timetable_group".
  *
@@ -16,7 +14,7 @@ use Yii;
  * @property Group $group
  * @property Timetable $timetable
  */
-class TimetableGroup extends \yii\db\ActiveRecord
+class TimetableGroup extends \common\models\MyModel
 {
     /**
      * {@inheritdoc}
@@ -32,7 +30,7 @@ class TimetableGroup extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['timetable_id', 'group_id', 'created_at', 'updated_at'], 'integer'],
+            [['timetable_id', 'group_id'], 'integer'],
             [['group_id'], 'exist', 'skipOnError' => true, 'targetClass' => Group::className(), 'targetAttribute' => ['group_id' => 'id']],
             [['timetable_id'], 'exist', 'skipOnError' => true, 'targetClass' => Timetable::className(), 'targetAttribute' => ['timetable_id' => 'id']],
         ];

@@ -17,7 +17,7 @@ use Yii;
  * @property Group $group
  * @property User $user
  */
-class Student extends \yii\db\ActiveRecord
+class Student extends \common\models\MyModel
 {
     /**
      * {@inheritdoc}
@@ -33,7 +33,7 @@ class Student extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'group_id', 'created_at', 'updated_at'], 'integer'],
+            [['user_id', 'group_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['group_id'], 'exist', 'skipOnError' => true, 'targetClass' => Group::className(), 'targetAttribute' => ['group_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],

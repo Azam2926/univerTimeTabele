@@ -17,7 +17,7 @@ use Yii;
  * @property TeacherSubject[] $teacherSubjects
  * @property Timetable[] $timetables
  */
-class Teacher extends \yii\db\ActiveRecord
+class Teacher extends \common\models\MyModel
 {
     /**
      * {@inheritdoc}
@@ -33,7 +33,7 @@ class Teacher extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'created_at', 'updated_at'], 'integer'],
+            [['user_id', ], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];

@@ -15,7 +15,7 @@ use Yii;
  * @property Student[] $students
  * @property TimetableGroup[] $timetableGroups
  */
-class Group extends \yii\db\ActiveRecord
+class Group extends \common\models\MyModel
 {
     /**
      * {@inheritdoc}

@@ -8,12 +8,15 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
+    'name' => 'Univer Timetable',
+    'homeUrl' => '/admin',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'backend\controllers',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
+            'baseUrl' => '/admin',
         ],
         'user' => [
             'identityClass' => 'common\models\User',

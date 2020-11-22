@@ -10,7 +10,7 @@ use yii\db\Migration;
  * - `{{%room}}`
  * - `{{%teacher}}`
  */
-class m201122_075250_create_timetable_table extends Migration
+class m201122_075300_create_timetable_table extends Migration
 {
     /**
      * {@inheritdoc}
@@ -21,8 +21,8 @@ class m201122_075250_create_timetable_table extends Migration
             'id' => $this->primaryKey(),
             'time' => $this->json()->notNull(),
             'subject_id' => $this->integer(),
-            'room' => $this->integer(),
-            'teacher' => $this->integer(),
+            'room_id' => $this->integer(),
+            'teacher_id' => $this->integer(),
             'created_at' => $this->integer(),
             'updated_at' => $this->integer()
         ]);
@@ -44,35 +44,35 @@ class m201122_075250_create_timetable_table extends Migration
             'CASCADE'
         );
 
-        // creates index for column `room`
+        // creates index for column `room_id`
         $this->createIndex(
-            '{{%idx-timetable-room}}',
+            '{{%idx-timetable-room_id}}',
             '{{%timetable}}',
-            'room'
+            'room_id'
         );
 
         // add foreign key for table `{{%room}}`
         $this->addForeignKey(
-            '{{%fk-timetable-room}}',
+            '{{%fk-timetable-room_id}}',
             '{{%timetable}}',
-            'room',
+            'room_id',
             '{{%room}}',
             'id',
             'CASCADE'
         );
 
-        // creates index for column `teacher`
+        // creates index for column `teacher_id`
         $this->createIndex(
-            '{{%idx-timetable-teacher}}',
+            '{{%idx-timetable-teacher_id}}',
             '{{%timetable}}',
-            'teacher'
+            'teacher_id'
         );
 
         // add foreign key for table `{{%teacher}}`
         $this->addForeignKey(
-            '{{%fk-timetable-teacher}}',
+            '{{%fk-timetable-teacher_id}}',
             '{{%timetable}}',
-            'teacher',
+            'teacher_id',
             '{{%teacher}}',
             'id',
             'CASCADE'
@@ -98,25 +98,25 @@ class m201122_075250_create_timetable_table extends Migration
 
         // drops foreign key for table `{{%room}}`
         $this->dropForeignKey(
-            '{{%fk-timetable-room}}',
+            '{{%fk-timetable-room_id}}',
             '{{%timetable}}'
         );
 
-        // drops index for column `room`
+        // drops index for column `room_id`
         $this->dropIndex(
-            '{{%idx-timetable-room}}',
+            '{{%idx-timetable-room_id}}',
             '{{%timetable}}'
         );
 
         // drops foreign key for table `{{%teacher}}`
         $this->dropForeignKey(
-            '{{%fk-timetable-teacher}}',
+            '{{%fk-timetable-teacher_id}}',
             '{{%timetable}}'
         );
 
-        // drops index for column `teacher`
+        // drops index for column `teacher_id`
         $this->dropIndex(
-            '{{%idx-timetable-teacher}}',
+            '{{%idx-timetable-teacher_id}}',
             '{{%timetable}}'
         );
 

@@ -14,7 +14,7 @@ use Yii;
  *
  * @property Timetable[] $timetables
  */
-class Room extends \yii\db\ActiveRecord
+class Room extends \common\models\MyModel
 {
     /**
      * {@inheritdoc}

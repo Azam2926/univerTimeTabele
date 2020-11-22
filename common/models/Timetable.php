@@ -10,17 +10,17 @@ use Yii;
  * @property int $id
  * @property string $time
  * @property int|null $subject_id
- * @property int|null $room
- * @property int|null $teacher
+ * @property int|null $room_id
+ * @property int|null $teacher_id
  * @property int|null $created_at
  * @property int|null $updated_at
  *
- * @property Room $room0
+ * @property Room $room
  * @property Subject $subject
- * @property Teacher $teacher0
+ * @property Teacher $teacher
  * @property TimetableGroup[] $timetableGroups
  */
-class Timetable extends \yii\db\ActiveRecord
+class Timetable extends \common\models\MyModel
 {
     /**
      * {@inheritdoc}
@@ -38,10 +38,10 @@ class Timetable extends \yii\db\ActiveRecord
         return [
             [['time'], 'required'],
             [['time'], 'safe'],
-            [['subject_id', 'room', 'teacher', 'created_at', 'updated_at'], 'integer'],
-            [['room'], 'exist', 'skipOnError' => true, 'targetClass' => Room::className(), 'targetAttribute' => ['room' => 'id']],
+            [['subject_id', 'room_id', 'teacher_id'], 'integer'],
+            [['room_id'], 'exist', 'skipOnError' => true, 'targetClass' => Room::className(), 'targetAttribute' => ['room_id' => 'id']],
             [['subject_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subject::className(), 'targetAttribute' => ['subject_id' => 'id']],
-            [['teacher'], 'exist', 'skipOnError' => true, 'targetClass' => Teacher::className(), 'targetAttribute' => ['teacher' => 'id']],
+            [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => Teacher::className(), 'targetAttribute' => ['teacher_id' => 'id']],
         ];
     }
 
@@ -54,21 +54,21 @@ class Timetable extends \yii\db\ActiveRecord
             'id' => 'ID',
             'time' => 'Time',
             'subject_id' => 'Subject ID',
-            'room' => 'Room',
-            'teacher' => 'Teacher',
+            'room_id' => 'Room ID',
+            'teacher_id' => 'Teacher ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
     }
 
     /**
-     * Gets query for [[Room0]].
+     * Gets query for [[Room]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getRoom0()
+    public function getRoom()
     {
-        return $this->hasOne(Room::className(), ['id' => 'room']);
+        return $this->hasOne(Room::className(), ['id' => 'room_id']);
     }
 
     /**
@@ -82,13 +82,13 @@ class Timetable extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Teacher0]].
+     * Gets query for [[Teacher]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getTeacher0()
+    public function getTeacher()
     {
-        return $this->hasOne(Teacher::className(), ['id' => 'teacher']);
+        return $this->hasOne(Teacher::className(), ['id' => 'teacher_id']);
     }
 
     /**

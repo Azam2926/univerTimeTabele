@@ -16,7 +16,7 @@ use Yii;
  * @property Subject $subject
  * @property Teacher $teacher
  */
-class TeacherSubject extends \yii\db\ActiveRecord
+class TeacherSubject extends \common\models\MyModel
 {
     /**
      * {@inheritdoc}
