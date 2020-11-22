@@ -47,4 +47,10 @@ return [
 
     ],
     'params' => $params,
+
+    'as access' => [
+        'allowActions' => [
+            'site/*'
+        ]
+    ],
 ];

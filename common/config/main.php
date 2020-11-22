@@ -1,5 +1,6 @@
 <?php
 return [
+    'timeZone' => 'Asia/Tashkent',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
@@ -18,6 +19,12 @@ return [
             'class' => 'mdm\admin\Module',
             'layout' => 'left-menu',
             'mainLayout' => '@app/views/layouts/main.php'
+        ]
+    ],
+
+    'as access' => [
+        'class' => 'mdm\admin\components\AccessControl',
+        'allowActions' => [
         ]
     ],
 ];
