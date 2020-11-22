@@ -1,15 +1,12 @@
 {
-    "name": "yiisoft/yii2-app-advanced",
-    "description": "Yii 2 Advanced Project Template",
-    "keywords": ["yii2", "framework", "advanced", "project template"],
-    "homepage": "http://www.yiiframework.com/",
+    "name": "iazam/univer-timetable",
+    "description": "Universities timetable for students and teachers",
+    "keywords": ["timetable", "university", "iazam"],
+    "homepage": "https://univer.iazam.me",
     "type": "project",
     "license": "BSD-3-Clause",
     "support": {
-        "issues": "https://github.com/yiisoft/yii2/issues?state=open",
-        "forum": "http://www.yiiframework.com/forum/",
-        "wiki": "http://www.yiiframework.com/wiki/",
-        "irc": "irc://irc.freenode.net/yii",
+        "issues": "https://iazam.me",
         "source": "https://github.com/yiisoft/yii2"
     },
     "minimum-stability": "stable",
