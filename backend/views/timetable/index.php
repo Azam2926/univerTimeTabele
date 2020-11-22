@@ -1,6 +1,8 @@
 <?php
 
 use common\models\Timetable;
+use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -45,7 +47,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
                 'value' => function ($model) {
                     return "<a href='/admin/subject/view?id=$model->subject_id'>{$model->subject->name}</a>";
-                }
+                },
+                'filter' => Select2::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'subject_id',
+                    'data' => ArrayHelper::map(\common\models\Subject::find()->all(), 'id', 'name'),
+                    'options' => ['placeholder' => 'Select a end ...'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ])
             ],
 
             [
@@ -53,14 +64,32 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
                 'value' => function ($model) {
                     return "<a href='/admin/room/view?id=$model->room_id'>{$model->room->name}</a>";
-                }
+                },
+                'filter' => Select2::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'room_id',
+                    'data' => ArrayHelper::map(\common\models\Room::find()->all(), 'id', 'name'),
+                    'options' => ['placeholder' => 'Select a end ...'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ])
             ],
             [
                 'attribute' => 'teacher_id',
                 'format' => 'html',
                 'value' => function ($model) {
                     return "<a href='/admin/room/view?id=$model->teacher_id'>{$model->teacher->name}</a>";
-                }
+                },
+                'filter' => Select2::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'teacher_id',
+                    'data' => ArrayHelper::map(\common\models\Teacher::find()->all(), 'id', 'name'),
+                    'options' => ['placeholder' => 'Select a end ...'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ])
             ],
             //'created_at',
             //'updated_at',
