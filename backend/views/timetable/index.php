@@ -1,5 +1,9 @@
 <?php
 
+use common\models\Group;
+use common\models\Room;
+use common\models\Subject;
+use common\models\Teacher;
 use common\models\Timetable;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
@@ -53,8 +57,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Select2::widget([
                     'model' => $searchModel,
                     'attribute' => 'subject_id',
-                    'data' => ArrayHelper::map(\common\models\Subject::find()->all(), 'id', 'name'),
-                    'options' => ['placeholder' => 'Select a end ...'],
+                    'data' => ArrayHelper::map(Subject::find()->all(), 'id', 'name'),
+                    'options' => ['placeholder' => 'Select a subject ...'],
                     'pluginOptions' => [
                         'allowClear' => true
                     ],
@@ -70,8 +74,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Select2::widget([
                     'model' => $searchModel,
                     'attribute' => 'room_id',
-                    'data' => ArrayHelper::map(\common\models\Room::find()->all(), 'id', 'name'),
-                    'options' => ['placeholder' => 'Select a end ...'],
+                    'data' => ArrayHelper::map(Room::find()->all(), 'id', 'name'),
+                    'options' => ['placeholder' => 'Select a room ...'],
                     'pluginOptions' => [
                         'allowClear' => true
                     ],
@@ -86,8 +90,29 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Select2::widget([
                     'model' => $searchModel,
                     'attribute' => 'teacher_id',
-                    'data' => ArrayHelper::map(\common\models\Teacher::find()->all(), 'id', 'name'),
-                    'options' => ['placeholder' => 'Select a end ...'],
+                    'data' => ArrayHelper::map(Teacher::find()->all(), 'id', 'name'),
+                    'options' => ['placeholder' => 'Select a teacher ...'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ])
+            ],
+
+            [
+                'label' => 'Groups',
+                'format' => 'html',
+                'value' => function ($model) {
+                    $txt = '';
+                    foreach ($model->groups as $group) {
+                        $txt .= "<a href='/admin/group/view?id=$group->id'>$group->name</a> <br>";
+                    }
+                    return $txt;
+                },
+                'filter' => Select2::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'groups',
+                    'data' => ArrayHelper::map(Group::find()->all(), 'id', 'name'),
+                    'options' => ['placeholder' => 'Select a group ...'],
                     'pluginOptions' => [
                         'allowClear' => true
                     ],

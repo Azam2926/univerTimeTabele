@@ -10,6 +10,13 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
+//$roles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
+//$roleNames = [];
+//foreach ($roles as $role) {
+//    $roleNames[] = $role->name;
+//}
+//vdd(in_array('me', $roleNames));
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -39,7 +46,10 @@ AppAsset::register($this);
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'About', 'url' => ['/site/about']],
         ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'Contact', 'url' => ['/site/contact']],
     ];
+
+
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];

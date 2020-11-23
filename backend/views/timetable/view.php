@@ -2,6 +2,7 @@
 
 use common\models\Timetable;
 use yii\helpers\Html;
+use yii\web\YiiAsset;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -10,7 +11,7 @@ use yii\widgets\DetailView;
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Timetables', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
+YiiAsset::register($this);
 
 
 ?>
@@ -45,6 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'subject_id',
+                'label' => 'Subject',
                 'format' => 'html',
                 'value' => function ($model) {
                     return "<a href='/admin/subject/view?id=$model->subject_id'>{$model->subject->name}</a>";
@@ -53,6 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'attribute' => 'room_id',
+                'label' => 'Room',
                 'format' => 'html',
                 'value' => function ($model) {
                     return "<a href='/admin/room/view?id=$model->room_id'>{$model->room->name}</a>";
@@ -60,9 +63,21 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'teacher_id',
+                'label' => 'Teacher',
                 'format' => 'html',
                 'value' => function ($model) {
                     return "<a href='/admin/room/view?id=$model->teacher_id'>{$model->teacher->name}</a>";
+                }
+            ],
+            [
+                'label' => 'Groups',
+                'format' => 'html',
+                'value' => function ($model) {
+                    $txt = '';
+                    foreach ($model->groups as $group) {
+                        $txt .= "<a href='/admin/group/view?id=$group->id'>$group->name</a> <br> ";
+                    }
+                    return $txt;
                 }
             ],
             'created_at:datetime',

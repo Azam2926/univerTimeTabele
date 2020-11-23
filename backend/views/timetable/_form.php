@@ -1,5 +1,9 @@
 <?php
 
+use common\models\Group;
+use common\models\Room;
+use common\models\Subject;
+use common\models\Teacher;
 use common\models\Timetable;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
@@ -19,11 +23,39 @@ use yii\widgets\ActiveForm;
 
             <div class="row">
                 <div class="col-lg-4">
-                    <label class="control-label">Day:</label>
-                    <?= Select2::widget([
-                        'name' => 'Timetable[day]',
+                    <?= $form->field($model, 'teacher_id')->widget(Select2::class, [
+                        'data' => ArrayHelper::map(Teacher::find()->all(), 'id', 'name'),
+//                        'options' => ['placeholder' => 'Select a teacher ...'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]); ?>
+                </div>
+                <div class="col-lg-4">
+                    <?= $form->field($model, 'subject_id')->widget(Select2::class, [
+                        'data' => ArrayHelper::map(Subject::find()->all(), 'id', 'name'),
+//                        'options' => ['placeholder' => 'Select a Subject ...'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]); ?>
+                </div>
+                <div class="col-lg-4">
+                    <?= $form->field($model, 'room_id')->widget(Select2::class, [
+                        'data' => ArrayHelper::map(Room::find()->all(), 'id', 'name'),
+//                        'options' => ['placeholder' => 'Select a Room ...'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]); ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <?= $form->field($model, 'day')->widget(Select2::class, [
                         'data' => Timetable::WeekDays,
-                        'options' => ['placeholder' => 'Select a day ...'],
+//                        'options' => ['placeholder' => 'Select a day ...'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],
@@ -31,11 +63,9 @@ use yii\widgets\ActiveForm;
                     ]); ?>
                 </div>
                 <div class="col-lg-4">
-                    <label class="control-label">Start:</label>
-                    <?= Select2::widget([
-                        'name' => 'Timetable[start]',
+                    <?= $form->field($model, 'start')->widget(Select2::class, [
                         'data' => Timetable::StartTime,
-                        'options' => ['placeholder' => 'Select a start ...'],
+//                        'options' => ['placeholder' => 'Select a start ...'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],
@@ -43,11 +73,9 @@ use yii\widgets\ActiveForm;
                     ]); ?>
                 </div>
                 <div class="col-lg-4">
-                    <label class="control-label">End:</label>
-                    <?= Select2::widget([
-                        'name' => 'Timetable[end]',
+                    <?= $form->field($model, 'end')->widget(Select2::class, [
                         'data' => Timetable::EndTime,
-                        'options' => ['placeholder' => 'Select a end ...'],
+//                        'options' => ['placeholder' => 'Select a end ...'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],
@@ -55,13 +83,26 @@ use yii\widgets\ActiveForm;
                     ]); ?>
                 </div>
             </div>
-            <br>
 
-            <?= $form->field($model, 'subject_id')->dropDownList(ArrayHelper::map(\common\models\Subject::find()->all(), 'id', 'name')) ?>
+            <div class="row">
+                <div class="col-lg-6">
 
-            <?= $form->field($model, 'room_id')->dropDownList(ArrayHelper::map(\common\models\Room::find()->all(), 'id', 'name')) ?>
-
-            <?= $form->field($model, 'teacher_id')->dropDownList(ArrayHelper::map(\common\models\Teacher::find()->all(), 'id', 'name')) ?>
+                    <?= $form->field($model, 'groups')->widget(Select2::class, [
+                        'data' => ArrayHelper::map(Group::find()->all(), 'id', 'name'),
+                        'options' => ['placeholder' => 'Select a Group ...', 'multiple' => true],
+                        'pluginOptions' => [
+                            'tokenSeparators' => [',', ' '],
+                            'maximumInputLength' => 2
+                        ],
+                        'toggleAllSettings' => [
+                            'selectLabel' => '<i class="fa fa-check-circle"></i> Tag All',
+                            'unselectLabel' => '<i class="fa fa-times-circle"></i> Untag All',
+                            'selectOptions' => ['class' => 'text-success'],
+                            'unselectOptions' => ['class' => 'text-danger'],
+                        ],
+                    ]); ?>
+                </div>
+            </div>
 
             <div class="form-group">
                 <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
