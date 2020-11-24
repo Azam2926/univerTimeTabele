@@ -6,6 +6,7 @@ use Yii;
 use common\models\Timetable;
 use common\models\TimetableSearch;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -67,6 +68,8 @@ class TimetableController extends Controller
         $model = new Timetable();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'You have successfully created this timetable');
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -86,13 +89,16 @@ class TimetableController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+        if (Yii::$app->user->can('updateTimetable', ['timetable' => $model])) {
+            if ($model->load(Yii::$app->request->post()) && $model->save())
+                return $this->redirect(['view', 'id' => $model->id]);
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
+        Yii::$app->session->setFlash('warning', 'You have no access for update this timetable');
+        return $this->goHome();
     }
 
     /**

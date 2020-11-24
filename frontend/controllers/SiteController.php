@@ -1,6 +1,11 @@
 <?php
+
 namespace frontend\controllers;
 
+use common\models\Group;
+use common\models\Student;
+use common\models\Timetable;
+use common\models\TimetableGroup;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -48,6 +53,24 @@ class SiteController extends Controller
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
+    }
+
+    /**
+     * Displays timetable.
+     *
+     * @return mixed
+     */
+    public function actionTimetable()
+    {
+        if ($student = Student::findOne(['user_id' => Yii::$app->user->id]))
+            if ($timetables = $student->timetables) {
+                return $this->render('timetable', [
+                    'timetables' => $timetables
+                ]);
+            }
+
+        Yii::$app->session->setFlash('warning', 'You have no timetable');
+        return $this->goHome();
     }
 
     /**

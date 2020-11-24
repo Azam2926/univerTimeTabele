@@ -17,8 +17,27 @@ use Yii;
  * @property Group $group
  * @property User $user
  */
-class Student extends \common\models\MyModel
+class Student extends MyModel
 {
+    public $timetables;
+
+    public function afterFind()
+    {
+        $timetablesByGroup = TimetableGroup::findAll(['group_id' => $this->group_id]);
+        foreach ($timetablesByGroup as $timetableGroup)
+            $timetables[Timetable::WeekDays[$timetableGroup->timetable->time['day']]][] = [
+                'start' => Timetable::StartTime[$timetableGroup->timetable->time['start']],
+                'end' => Timetable::EndTime[$timetableGroup->timetable->time['end']],
+                'subject' => $timetableGroup->timetable->subject->name,
+                'teacher' => $timetableGroup->timetable->teacher->name,
+                'room' => $timetableGroup->timetable->room->name ];
+
+        if (!empty($timetables))
+            $this->timetables = $timetables;
+
+        parent::afterFind();
+    }
+
     /**
      * {@inheritdoc}
      */
