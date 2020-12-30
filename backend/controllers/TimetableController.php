@@ -90,8 +90,9 @@ class TimetableController extends Controller
         $model = $this->findModel($id);
 
         if (Yii::$app->user->can('updateTimetable', ['timetable' => $model])) {
-            if ($model->load(Yii::$app->request->post()) && $model->save())
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
+            }
 
             return $this->render('update', [
                 'model' => $model,

@@ -26,23 +26,24 @@ class LoginForm extends Model
         return [
             // username and password are both required
             [['username', 'password'], 'required'],
-            ['username', 'checkAccess'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+            ['username', 'checkAccess'],
         ];
     }
 
-    public function checkAccess($attribute, $params)
+    public function checkAccess($attribute)
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             $userRoles = [];
-            foreach (Yii::$app->authManager->getRolesByUser($user->getId()) as $role)
+            foreach (Yii::$app->authManager->getRolesByUser($user->getId()) as $role) {
                 $userRoles[] = $role->name;
+            }
 
-            if (!$user || !(in_array('me', $userRoles) || in_array('teacher', $userRoles))) {
+            if (!$userRoles || !(in_array('me', $userRoles) || in_array('teacher', $userRoles))) {
                 $this->addError($attribute, 'This user is not authorized for admin panel');
             }
         }
@@ -53,9 +54,8 @@ class LoginForm extends Model
      * This method serves as the inline validation for password.
      *
      * @param string $attribute the attribute currently being validated
-     * @param array $params the additional name-value pairs given in the rule
      */
-    public function validatePassword($attribute, $params)
+    public function validatePassword($attribute)
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();

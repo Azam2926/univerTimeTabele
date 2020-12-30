@@ -16,7 +16,7 @@
         </div>
 
         <?= dmstr\widgets\Menu::widget(
-            [
+                    [
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget' => 'tree'],
                 'items' => [
                     ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
@@ -58,7 +58,7 @@
                     ],
                 ],
             ]
-        ) ?>
+                ) ?>
 
     </section>
 

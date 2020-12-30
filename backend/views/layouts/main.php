@@ -7,17 +7,16 @@ use yii\helpers\Html;
 /* @var $content string */
 
 
-if (Yii::$app->controller->action->id === 'login') { 
-/**
- * Do not use this code in your template. Remove it. 
- * Instead, use the code  $this->layout = '//main-login'; in your controller.
- */
+if (Yii::$app->controller->action->id === 'login') {
+    /**
+     * Do not use this code in your template. Remove it.
+     * Instead, use the code  $this->layout = '//main-login'; in your controller.
+     */
     echo $this->render(
         'main-login',
         ['content' => $content]
     );
 } else {
-
     if (class_exists('backend\assets\AppAsset')) {
         backend\assets\AppAsset::register($this);
     } else {
@@ -26,8 +25,7 @@ if (Yii::$app->controller->action->id === 'login') {
 
     dmstr\web\AdminLteAsset::register($this);
 
-    $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
-    ?>
+    $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist'); ?>
     <?php $this->beginPage() ?>
     <!DOCTYPE html>
     <html lang="<?= Yii::$app->language ?>">
@@ -43,9 +41,9 @@ if (Yii::$app->controller->action->id === 'login') {
     <div class="wrapper">
 
         <?= $this->render(
-            'header.php',
-            ['directoryAsset' => $directoryAsset]
-        ) ?>
+        'header.php',
+        ['directoryAsset' => $directoryAsset]
+    ) ?>
 
         <?= $this->render(
             'left.php',
@@ -63,4 +61,5 @@ if (Yii::$app->controller->action->id === 'login') {
     </body>
     </html>
     <?php $this->endPage() ?>
-<?php } ?>
+<?php
+} ?>

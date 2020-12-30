@@ -63,11 +63,12 @@ class SiteController extends Controller
     public function actionTimetable()
     {
         if ($student = Student::findOne(['user_id' => Yii::$app->user->id]))
-            if ($timetables = $student->timetables) {
+            if ($timetables = $student->timetables)
                 return $this->render('timetable', [
                     'timetables' => $timetables
                 ]);
-            }
+
+
 
         Yii::$app->session->setFlash('warning', 'You have no timetable');
         return $this->goHome();
